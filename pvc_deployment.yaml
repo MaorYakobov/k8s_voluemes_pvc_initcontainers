@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-music-pvc
+spec:
+  selector:
+    matchLabels:
+      app: spring-music-pvc
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: spring-music-pvc
+    spec:
+      containers:
+      - name: littelone
+        image: yanivomc/spring-music:latest
+        volumeMounts:
+        - name: jb-claim-path
+          mountPath: /var/www/html
+      volumes:
+      - name: jb-claim-path
+        persistentVolumeClaim:
+          claimName: jb-claim
+        
